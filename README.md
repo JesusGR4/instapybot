@@ -2,7 +2,7 @@
 Instagram bot for making multiple needs true. Python developed. 
 
 In this first development, we are going to develop a basics administration's panel where users can 
-link Instagram accounts they need and make an singular strategy by account.
+link Instagram accounts they need and make a singular strategies by account.
 
 Requirements as anonymous 
 -------------------------
@@ -12,13 +12,13 @@ Requirements as anonymous
 Requirements as User 
 -------------------------
 
-2. List Instagram accounts related to the User.
+1. List Instagram accounts related to the User.
 
-3. Register an Instagram account.
+2. Register an Instagram account.
 
-4. List strategies for Instagram account.
+3. List strategies for Instagram account.
 
-5. Create a strategy for an account. When strategy is created, 
+4. Create a strategy for an account. When strategy is created, 
 the system must allow to config the following:
     1. Set a list of hashtag target.
     2. Set how many users follow per day related to a hashtag.
@@ -27,6 +27,10 @@ the system must allow to config the following:
     5. Set how many users follow per day related to a influencers.
     6. Set how many users unfollow per day related to a influencers.
     7. Set a list of commentaries to write in posts related to a hashtag.
-    7. Set how many likes give in posts related to a hashtag.
-
-
+    8. Set how many likes give in posts related to a hashtag.
+    9. Show the list of likes given. System must allow to choose the day to show.
+    10. Set the schedule that the system must like posts.
+    11. Set the schedule that the system must comment posts.
+    12. Set the schedule that the system must follow people.
+5. Choose which strategy is active. Just one strategy can be active.
+    
