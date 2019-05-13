@@ -34,3 +34,9 @@ the system must allow to config the following:
     12. Set the schedule that the system must follow people.
 5. Choose which strategy is active. Just one strategy can be active.
     
+Infrastructure 
+-------------------------
+
+1. MongoDB as database.
+2. Django as web framework.
+
