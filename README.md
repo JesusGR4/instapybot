@@ -40,3 +40,14 @@ Infrastructure
 2. Django as web framework.
 3. Docker as working environment.
 
+How to deploy?
+-------------------------
+
+1. First, clone the repo.
+2. Checkout to develop branch.
+3. Move to instapybot and run the following
+
+`docker-compose build`
+
+`docker-compose up`
+
