@@ -26,11 +26,12 @@ the system must allow to config the following:
     4. Set how many users follow per day related to a influencers.
     5. Set a list of commentaries to write in posts related to a hashtag.
     6. Set how many likes give in posts related to a hashtag.
-    7. Show the list of likes given. System must allow to choose the day to show.
+    7. Show the list of likes given related to a hashtag. System must allow to choose the day to show.
     8. Set the schedule that the system must like posts.
     9. Set the schedule that the system must comment posts.
     10. Set the schedule that the system must follow people.
-    11. Set how many people unfollow who didn't folloy to the account.
+    11. Set how many time has to pass way to unfollow a followed account.
+    12. Replicate a strategy for another Instagram Account.
 5. Choose which strategy is active. Just one strategy can be active.
     
 Infrastructure 
