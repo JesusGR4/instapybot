@@ -4,5 +4,8 @@ RUN mkdir /app
 WORKDIR /app
 COPY ./requirements.txt /app/
 RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN apt-get upgrade
+#RUN pip install -r requirements.txt
+RUN pip install django
+RUN pip install psycopg2
 RUN pip install djongo
