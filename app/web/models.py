@@ -36,8 +36,8 @@ class Influencer(models.Model):
 	name = models.CharField(max_length=150) #Influencer name, it will be the @ on Instagram
 	number_of_users_to_follow = models.IntegerField(default=0) #It represents how many users follow in the schedule
 	days_has_to_pass_to_unfollow = models.IntegerField(default=0) #It sets how many days has to unfollow
-	initial_time_to_follow = models.DateTimeField() #Initial hour to follow people
-	final_time_to_follow = models.DateTimeField() #Final hour to follow people 
+	initial_time_to_follow = models.TimeField() #Initial hour to follow people
+	final_time_to_follow = models.TimeField() #Final hour to follow people
 	status = models.BooleanField(default=STATUS['ACTIVE']) #This status represents if Strategy is active or not
 	created_date = models.DateTimeField(auto_now_add=True, blank=True) #Created date added by itself
 	modified_at = models.DateTimeField(auto_now=True, blank=True) #We we'll get a little log in Influencer Changes
@@ -55,10 +55,10 @@ class InfluencerFollow(models.Model):
 class Hashtag(models.Model):
     strategy = models.ForeignKey(Strategy, on_delete=models.CASCADE)
     number_of_likes_per_day = models.IntegerField(default=0)
-    initial_time_to_like_posts = models.DateTimeField()
-    final_time_to_like_posts = models.DateTimeField()
-    initial_time_to_comment_posts = models.DateTimeField()
-    final_time_to_comment_posts = models.DateTimeField()
+    initial_time_to_like_posts = models.TimeField()
+    final_time_to_like_posts = models.TimeField()
+    initial_time_to_comment_posts = models.TimeField()
+    final_time_to_comment_posts = models.TimeField()
     status = models.BooleanField(default=STATUS['ACTIVE'])  # This status represents if Hashtag is active or not
     created_date = models.DateTimeField(auto_now_add=True, blank=True)  # Created date added by itself
     modified_at = models.DateTimeField(auto_now=True, blank=True)  # We we'll get a little log in Influencer Changes
