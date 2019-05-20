@@ -34,8 +34,8 @@ class Influencer(models.Model):
 	strategy = models.ForeignKey(Strategy, on_delete=models.CASCADE)
 	influencer_instagram_id = models.CharField(max_length=255) #I don't really know in this moment if needed and the type de Instagram ID from API Oficial Instagram
 	name = models.CharField(max_length=150) #Influencer name, it will be the @ on Instagram
-	number_of_users_to_follow = models.IntegerField(default=0) #It represents how many users follow in the schedule
-	days_has_to_pass_to_unfollow = models.IntegerField(default=0) #It sets how many days has to unfollow
+	number_of_users_to_follow = models.PositiveIntegerField(default=0) #It represents how many users follow in the schedule
+	days_has_to_pass_to_unfollow = models.PositiveIntegerField(default=0) #It sets how many days has to unfollow
 	initial_time_to_follow = models.TimeField() #Initial hour to follow people
 	final_time_to_follow = models.TimeField() #Final hour to follow people
 	status = models.BooleanField(default=STATUS['ACTIVE']) #This status represents if Strategy is active or not
@@ -54,7 +54,7 @@ class InfluencerFollow(models.Model):
 #It represents the hashtag which user wants to work on.
 class Hashtag(models.Model):
     strategy = models.ForeignKey(Strategy, on_delete=models.CASCADE)
-    number_of_likes_per_day = models.IntegerField(default=0)
+    number_of_likes_per_day = models.PositiveIntegerField(default=0)
     initial_time_to_like_posts = models.TimeField()
     final_time_to_like_posts = models.TimeField()
     initial_time_to_comment_posts = models.TimeField()
@@ -72,7 +72,7 @@ class LikedPost(models.Model):
 #It represents every word can be used to create a sentence on Instagram post
 class Word(models.Model):
     hashtag = models.ForeignKey(Hashtag, on_delete=models.CASCADE)
-    order_in_sentence = models.IntegerField(default=0) #Zero is the first position of the sentence, This attribute represents the word's position in sentence
+    order_in_sentence = models.PositiveIntegerField(default=0) #Zero is the first position of the sentence, This attribute represents the word's position in sentence
     content = models.CharField(max_length=30)
     status = models.BooleanField(default=STATUS['ACTIVE'])  # This status represents if Word is active or not
     created_date = models.DateTimeField(auto_now_add=True, blank=True)  # Created date added by itself
