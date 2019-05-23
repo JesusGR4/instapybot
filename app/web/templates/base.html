@@ -18,21 +18,19 @@
             crossorigin="anonymous"></script>
     <!-- End Boostrap include -->
     <!-- CUSTOM CSS -->
-    <link href="{% static "styles/base.css" %}" rel="stylesheet">
+    <link href="{% static 'styles/base.css' %}" rel="stylesheet">
     <!-- END CUSTOM CSS -->
     <title>Instapybot.com</title>
 </head>
-<header>
-    <div class="container">
-        {% block header %}
-        {% include "header.html" %}
-        {% endblock %}
-    </div>
-</header>
-<footer class="footer">
-    {% block footer %}
-    {% include "footer.html" %}
-    {% endblock %}
-</footer>
+
+{% block header %}
+{% include "header.html" %}
+{% endblock %}
+
+
+{% block footer %}
+{% include "footer.html" %}
+{% endblock %}
+
 </html>
 
