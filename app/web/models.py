@@ -10,7 +10,6 @@ STATUS = {'ACTIVE': True,
 # User Entity: Main entity which contains User info
 class User(AbstractUser):
     email = models.EmailField(max_length=254, unique=True)
-    password = models.CharField(max_length=50)
     created_date = models.DateTimeField(auto_now_add=True, blank=True)  # Created date added by itself
     modified_at = models.DateTimeField(auto_now=True, blank=True)  # We we'll get a little log in User Changes
 

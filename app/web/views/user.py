@@ -2,12 +2,29 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout as django_logout, authenticate, login as django_login
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.sessions.models import Session
-
-from web.forms import LoginForm
+from django.contrib import messages
+from web.forms import LoginForm, UserForm
 
 
 def signup(request):
-    pass
+    """
+    Show a user register form
+    :param request: HttpRequest
+    :return: HttpResponse
+    """
+    if request.method == 'GET':
+        form = UserForm()
+    else:
+        form = UserForm(request.POST)
+        if form.is_valid():
+            new_user = form.save()  # We are gonna save the object and it will be back
+            messages.add_message(request,messages.INFO,_('You have been registered succesfully!'))
+            return redirect('login')
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'user/signup.html', context)
 
 
 # Login View, Here system handle User Authentication
