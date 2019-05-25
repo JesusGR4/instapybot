@@ -1,14 +1,27 @@
 {% extends 'base/base.html' %}
+<!-- LOADS -->
 {% load staticfiles %}
 {% load i18n %}
+{% load crispy_forms_tags %}
+<!-- END LOADS -->
+
 {% block title %} {% trans "Login" %} {% endblock %}
 {% block body %}
+
+
     <form class="form-signin" method="POST">
         {% csrf_token %}
+        <div class="errors">
+            {% for error in errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
         <div class="text-center mb-4">
             <img class="mb-4" src="../../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
             <h1 class="h3 mb-3 font-weight-normal">{% trans "Login" %}</h1>
         </div>
+        {{ form|crispy }}
+        <!--
 
         <div class="form-label-group">
             <input name="username" type="text" id="inputUsername" class="form-control" placeholder="{% trans 'Username' %}"
@@ -22,7 +35,7 @@
                    placeholder="{% trans 'Password' %}"
                    required=>
             <label for="inputPassword">{% trans "Password" %}</label>
-        </div>
+        </div> -->
         <button class="btn btn-lg btn-primary btn-block" type="submit">{% trans "Let's go" %}</button>
     </form>
 {% endblock %}

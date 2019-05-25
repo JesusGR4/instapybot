@@ -30,13 +30,17 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'web',
+    # Django Apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles'
+    'django.contrib.staticfiles',
+    # Project Apps
+    'web',
+    ## External Apps
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -102,6 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 AUTH_USER_MODEL = "web.User"
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # i18n section
 LANGUAGES = (
     ('en', _('English')),
