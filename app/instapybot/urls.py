@@ -16,14 +16,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include, url
-from web.views import home
+from web.views import home, user
 from web.views.translation import change_language
-from django.conf.urls.i18n import i18n_patterns
+
 
 urlpatterns = [
-    #Administration
+    # Administration
     path('admin/', admin.site.urls),
     # i18n
     url(r'i18n/change_language', change_language, name='change_language'),
     url(r'^$', home.home, name='home'),
+
+    # User management
+    url(r'^login$', user.login, name='login'),
+    url(r'^logout$', user.logout, name='logout'),
+    url(r'^signup$', user.signup, name='signup')
+
 ]

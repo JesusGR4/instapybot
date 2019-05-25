@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 STATUS = {'ACTIVE': True,
           'DISABLED': False,
@@ -7,11 +8,9 @@ STATUS = {'ACTIVE': True,
 
 
 # User Entity: Main entity which contains User info
-class User(models.Model):
-    username = models.CharField(max_length=150)
-    email = models.EmailField(max_length=254)
+class User(AbstractUser):
+    email = models.EmailField(max_length=254, unique=True)
     password = models.CharField(max_length=50)
-    status = models.BooleanField(default=STATUS['ACTIVE'])  # This status represents if user is active or not
     created_date = models.DateTimeField(auto_now_add=True, blank=True)  # Created date added by itself
     modified_at = models.DateTimeField(auto_now=True, blank=True)  # We we'll get a little log in User Changes
 

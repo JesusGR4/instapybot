@@ -9,5 +9,6 @@ RUN apt-get upgrade
 RUN pip install django
 RUN pip install psycopg2
 RUN pip install djongo
-RUN apt-get update && apt-get install -y \
-gettext \
+RUN apt-get update && apt-get install -y gettext
+
+EXPOSE 8000
