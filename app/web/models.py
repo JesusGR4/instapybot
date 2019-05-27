@@ -20,6 +20,7 @@ class User(AbstractUser):
 # Instagram_Account entity: It represents all Instagram Accounts related to a User
 class InstagramAccount(models.Model):
     instagram_account_name = models.CharField(max_length=150)
+    name = models.CharField(max_length=150)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.BooleanField(
         default=STATUS['ACTIVE'])  # This status represents if Instagram Account is active or not
