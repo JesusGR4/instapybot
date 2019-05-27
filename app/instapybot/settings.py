@@ -138,30 +138,15 @@ STATICFILES_DIRS = (
 )
 
 # REDIS
-SESSION_ENGINE = 'redis_sessions.session'
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://redis:6379/0",
+        "LOCATION": "redis://:NfYUp469YF@redis:6379/0",
         "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
         }
     }
 }
-SESSION_REDIS_SENTINEL_LIST = [("127.0.0.1", 6379)]
-SESSION_REDIS_SENTINEL_MASTER_ALIAS = 'sentinel-master'
 
-SESSION_REDIS = {
-    'prefix': 'session',
-    'socket_timeout': 1,
-    'retry_on_timeout': False,
-    'pool': [{
-        'host': '127.0.0.1',
-        'port': 6379,
-        'db': 0,
-        'password': "NfYUp=?469>Y[F",
-        'unix_domain_socket_path': None,
-        'url': None,
-        'weight': 1
-    }]
-}
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"

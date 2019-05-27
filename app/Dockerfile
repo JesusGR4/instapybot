@@ -11,7 +11,5 @@ RUN pip install psycopg2
 RUN pip install djongo
 RUN apt-get update && apt-get install -y gettext
 RUN pip install django-crispy-forms
-RUN pip install redis
 RUN pip install django-redis
-RUN pip install django-redis-sessions
 EXPOSE 8000
