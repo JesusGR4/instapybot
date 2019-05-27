@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from web.models import User
+from web.models import User, InstagramAccount
 
 
 class LoginForm(forms.Form):
@@ -27,3 +27,12 @@ class UserForm(forms.ModelForm):
         widgets = {
             'password': forms.PasswordInput()
         }
+
+class InstagramAccountForm(forms.ModelForm):
+    """
+    Instagram Account form
+    """
+
+    class Meta:
+        model = InstagramAccount
+        fields = ['instagram_account_name', 'name', 'user']

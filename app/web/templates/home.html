@@ -3,5 +3,13 @@
 {% load i18n %}
 
 {% block body %}
+    {% if instagram_accounts|length > 0 %}
 
+        {% for  instagram_account in instagram_accounts %}
+            <p>{{ instagram_account.name }}</p>
+            <p>{{ instagram_account.pk }}</p>
+        {% endfor %}
+    {% elif user.is_authenticated%}
+        {% trans "You don't have any Instagram Acoount, create one." %}
+    {% endif %}
 {% endblock %}
