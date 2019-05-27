@@ -12,8 +12,12 @@ services:
     command: mongod --smallfiles --logpath=/dev/null
   redis:
     image: redis:latest
-    ports:
-      - 6379:6380
+    command: redis-server /usr/local/etc/redis/redis.conf
+    expose:
+      - "6379"
+    volumes:
+      - ./redis-conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./data/redis:/data
   app:
     build: ./app/
     command: bash -c "python ./app/manage.py runserver 0.0.0.0:8000"
