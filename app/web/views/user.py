@@ -4,53 +4,64 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.sessions.models import Session
 from django.contrib import messages
 from web.forms import LoginForm, UserForm
+from django.views.generic import View
 
 
-def signup(request):
-    """
-    Show a user register form
-    :param request: HttpRequest
-    :return: HttpResponse
-    """
-    if request.method == 'GET':
+class SignupView(View):
+    def get(self, request):
+        """
+        Show a user register form
+        :param request: HttpRequest
+        :return: HttpResponse
+        """
         form = UserForm()
-    else:
+        context = {
+            'form': form,
+        }
+        return render(request, 'user/signup.html', context)
+
+    def post(self, request):
         form = UserForm(request.POST)
         if form.is_valid():
             new_user = form.save()  # We are gonna save the object and it will be back
-            messages.add_message(request,messages.INFO,_('You have been registered succesfully!'))
+            messages.add_message(request, messages.INFO, _('You have been registered succesfully!'))
             return redirect('login')
+        context = {
+            'form': form,
+        }
+        return render(request, 'user/signup.html', context)
 
-    context = {
-        'form': form,
-    }
-    return render(request, 'user/signup.html', context)
 
-
-# Login View, Here system handle User Authentication
-def login(request):
+class LoginView(View):
     error_messages = []
-    if request.method == 'POST':
+    context = {}
+    def get(self, request):
+        form = LoginForm()
+        self.context = {
+            'errors': self.error_messages,
+            'form': form
+        }
+        return render(request, 'user/login.html', self.context)
+
+    def post(self, request):
         form = LoginForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username', '')
             password = form.cleaned_data.get('password', '')
             user = authenticate(username=username, password=password)
             if user is None:
-                error_messages.append(_('User does not exist'))
+                self.error_messages.append(_('User does not exist'))
             else:
                 if user.is_active:
                     django_login(request, user)
                     return redirect('home')
                 else:
-                    error_messages.append(_('User not active'))
-    else:
-        form = LoginForm()
-    context = {
-        'errors': error_messages,
-        'form': form
-    }
-    return render(request, 'user/login.html', context)
+                    self.error_messages.append(_('User not active'))
+        self.context = {
+            'errors': self.error_messages,
+            'form': form
+        }
+        return render(request, 'user/login.html', self.context)
 
 
 # This controller is gonna handle if the user is logged, if it's, it logs out it and resend to the home

@@ -12,4 +12,5 @@ RUN pip install djongo
 RUN apt-get update && apt-get install -y gettext
 RUN pip install django-crispy-forms
 RUN pip install django-redis
+RUN pip install InstagramApi
 EXPOSE 8000

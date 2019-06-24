@@ -18,17 +18,20 @@ from django.urls import path
 from django.conf.urls import include, url
 from web.views import home, user, instagramaccount
 from web.views.translation import change_language
-
+from web.views.home import HomeView
+from web.views.user import SignupView, LoginView
+from web.views.instagramaccount import CreateInstagramAccountView
 urlpatterns = [
     # Administration
     path('admin/', admin.site.urls),
     # i18n
     url(r'i18n/change_language', change_language, name='change_language'),
-    url(r'^$', home.home, name='home'),
+    url(r'^$', HomeView.as_view(), name='home'),
 
     # User management
-    url(r'^login$', user.login, name='login'),
+    url(r'^login$', LoginView.as_view(), name='login'),
     url(r'^logout$', user.logout, name='logout'),
-    url(r'^signup$', user.signup, name='signup'),
-    url(r'^create$', instagramaccount.create, name='create_insta')
+    url(r'^signup$', SignupView.as_view(), name='signup'),
+    # Instagram Account management
+    url(r'^instagram/create$', CreateInstagramAccountView.as_view(), name='create_instagram_account')
 ]

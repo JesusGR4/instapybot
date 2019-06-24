@@ -1,8 +1,9 @@
+# -*- coding: utf-8 -*-
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-
+from django.core.exceptions import ValidationError
 from web.models import User, InstagramAccount
-
+from .validators.instagramvalidator import validate_instagram_account
 
 class LoginForm(forms.Form):
     username = forms.CharField(label=_('Username'))
@@ -14,6 +15,7 @@ class UserForm(forms.ModelForm):
     User form
     info: We have to re-define save function because we are not using a different User Form, so we have to set manually the password
     """
+
     def save(self, commit=True):
         user = super(UserForm, self).save(commit=False)
         user.set_password(self.cleaned_data.get('password'))
@@ -28,11 +30,25 @@ class UserForm(forms.ModelForm):
             'password': forms.PasswordInput()
         }
 
+
 class InstagramAccountForm(forms.ModelForm):
+
+    def clean(self):
+        instagram_account_name = self.cleaned_data.get(u'instagram_account_name')
+        instagram_account_password = self.cleaned_data.get(u'instagram_account_password')
+        if not validate_instagram_account(instagram_account_name, instagram_account_password):
+            raise ValidationError(_("Invalid login"))
+
+        return self.cleaned_data
+
     """
     Instagram Account form
     """
 
     class Meta:
         model = InstagramAccount
-        fields = ['instagram_account_name', 'name', 'user']
+        fields = ['name', 'instagram_account_name', 'instagram_account_password']
+        exclude = ['user']
+        widgets = {
+            'instagram_account_password': forms.PasswordInput()
+        }

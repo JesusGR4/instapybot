@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from djongo import models
 from django.contrib.auth.models import AbstractUser
 
@@ -13,7 +14,7 @@ class User(AbstractUser):
     email = models.EmailField(max_length=254, unique=True)
     created_date = models.DateTimeField(auto_now_add=True, blank=True)  # Created date added by itself
     modified_at = models.DateTimeField(auto_now=True, blank=True)  # We we'll get a little log in User Changes
-    objects = models.DjongoManager()
+
 
     def __str__(self):
         return self.email
@@ -22,15 +23,15 @@ class User(AbstractUser):
 # Instagram_Account entity: It represents all Instagram Accounts related to a User
 class InstagramAccount(models.Model):
     _id = models.ObjectIdField()
-    instagram_account_name = models.CharField(max_length=150)
     name = models.CharField(max_length=150)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    instagram_account_name = models.CharField(max_length=150)
+    instagram_account_password = models.CharField(max_length=150)
     status = models.BooleanField(
         default=STATUS['ACTIVE'])  # This status represents if Instagram Account is active or not
     created_date = models.DateTimeField(auto_now_add=True, blank=True)  # Created date added by itself
     modified_at = models.DateTimeField(auto_now=True,
                                        blank=True)  # We we'll get a little log in Instagram_Account Changes
-    objects = models.DjongoManager()
 
     def __str__(self):
         return self.name
@@ -44,7 +45,7 @@ class Strategy(models.Model):
     status = models.BooleanField(default=STATUS['ACTIVE'])  # This status represents if Strategy is active or not
     created_date = models.DateTimeField(auto_now_add=True, blank=True)  # Created date added by itself
     modified_at = models.DateTimeField(auto_now=True, blank=True)  # We we'll get a little log in Strategy Changes
-    objects = models.DjongoManager()
+
 
     def __str__(self):
         return self.strategy_name
@@ -66,7 +67,7 @@ class Influencer(models.Model):
     status = models.BooleanField(default=STATUS['ACTIVE'])  # This status represents if Strategy is active or not
     created_date = models.DateTimeField(auto_now_add=True, blank=True)  # Created date added by itself
     modified_at = models.DateTimeField(auto_now=True, blank=True)  # We we'll get a little log in Influencer Changes
-    objects = models.DjongoManager()
+
 
     def __str__(self):
         return self.name
@@ -82,7 +83,6 @@ class InfluencerFollow(models.Model):
     is_followed = models.BooleanField(default=STATUS['FOLLOWED'])
     follow_date = models.DateTimeField(auto_now_add=True, blank=True)  # Created date added by itself
     unfollow_date = models.DateTimeField(null=True, blank=True)  # We we'll get a little log in InfluencerFollow Changes
-    objects = models.DjongoManager()
 
     def __str__(self):
         return self.follow_instagram_id
@@ -101,7 +101,6 @@ class Hashtag(models.Model):
     status = models.BooleanField(default=STATUS['ACTIVE'])  # This status represents if Hashtag is active or not
     created_date = models.DateTimeField(auto_now_add=True, blank=True)  # Created date added by itself
     modified_at = models.DateTimeField(auto_now=True, blank=True)  # We we'll get a little log in Influencer Changes
-    objects = models.DjongoManager()
 
     def __str__(self):
         return self.hashtag_name
@@ -113,7 +112,6 @@ class LikedPost(models.Model):
     hashtag = models.ForeignKey(Hashtag, on_delete=models.CASCADE)
     id_instagram_liked_post = models.CharField(max_length=255)
     created_date = models.DateTimeField(auto_now_add=True, blank=True)  # Created date added by itself
-    objects = models.DjongoManager()
 
     def __str__(self):
         return self.id_instagram_liked_post
@@ -129,7 +127,6 @@ class Word(models.Model):
     status = models.BooleanField(default=STATUS['ACTIVE'])  # This status represents if Word is active or not
     created_date = models.DateTimeField(auto_now_add=True, blank=True)  # Created date added by itself
     modified_at = models.DateTimeField(auto_now=True, blank=True)  # We we'll get a little log in Word Changes
-    objects = models.DjongoManager()
 
     def __str__(self):
         return self.content
@@ -141,7 +138,6 @@ class Post(models.Model):
     id_instagram_commented_post = models.CharField(max_length=255)
     created_date = models.DateTimeField(auto_now_add=True, blank=True)  # Created date added by itself
     words = models.ManyToManyField(Word)
-    objects = models.DjongoManager()
 
     def __str__(self):
         return self.id_instagram_commented_post
