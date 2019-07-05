@@ -7,7 +7,7 @@
         <div class="pt-4">
             <div class="float-left"><h2>{% trans "Your Instagram Accounts" %}</h2></div>
             <div class="float-right">
-                <button type="button" class="btn btn-dark rounded">{% trans "Create an Instagram Account" %}</button>
+                <a class="btn btn-dark rounded" href="{% url 'create_instagram_account' %}">{% trans "Create an Instagram Account" %}</a>
             </div>
         </div>
         <table class="table">
@@ -26,8 +26,8 @@
                     <td><p>{{ instagram_account.instagram_account_name }}</p></td>
                     <td><p>{{ instagram_account.status }}</p></td>
                     <td>
-                        <button type="button" class="btn btn-primary rounded">{% trans "Edit" %}</button>
-                        <button type="button" class="btn btn-danger rounded">{% trans "Disable" %}</button>
+                        <a class="btn btn-primary rounded">{% trans "Edit" %}</a>
+                        <a class="btn btn-danger rounded">{% trans "Disable" %}</a>
                     </td>
                 </tr>
             {% endfor %}
