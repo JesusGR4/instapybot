@@ -4,6 +4,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 from web.models import User, InstagramAccount
 from .validators.instagramvalidator import validate_instagram_account
+from django.conf import settings
+from cryptography.fernet import Fernet
+
 
 class LoginForm(forms.Form):
     username = forms.CharField(label=_('Username'))
@@ -32,6 +35,15 @@ class UserForm(forms.ModelForm):
 
 
 class InstagramAccountForm(forms.ModelForm):
+
+    def save(self, commit=True):
+        instagram = super(InstagramAccountForm, self).save(commit=False)
+        f = Fernet(settings.AES256_KEY)
+        instagram.instagram_account_password = f.encrypt(
+            bytes(self.cleaned_data.get(u'instagram_account_password'), encoding='utf8'))
+        if commit:
+            instagram.save()
+        return instagram
 
     def clean(self):
         instagram_account_name = self.cleaned_data.get(u'instagram_account_name')

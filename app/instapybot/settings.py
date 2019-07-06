@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 from django.utils.translation import ugettext_lazy as _
+from cryptography.fernet import Fernet
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -150,3 +151,9 @@ CACHES = {
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
+PATH_AES256_KEY = os.path.join(BASE_DIR,"instapybot/generated_key.key")
+
+if os.path.isfile(PATH_AES256_KEY):
+    key = Fernet.generate_key()
+    file = open(PATH_AES256_KEY, 'rb')
+    AES256_KEY = file.read()
