@@ -33,6 +33,8 @@ the system must allow to config the following:
     11. Set how many time has to pass way to unfollow a followed account.
     12. Replicate a strategy for another Instagram Account.
 5. Choose which strategy is active. Just one strategy can be active.
+
+# Instapybot - Getting started
     
 Infrastructure 
 -------------------------
@@ -40,6 +42,27 @@ Infrastructure
 1. MongoDB as database.
 2. Django as web framework.
 3. Docker as working environment.
+
+
+Technology versions
+-------------------------
+
+1. Python = 3.7
+2. Mongo = 3.6.3
+3. Redis = 5.0.4
+
+
+Dependencies versions
+-------------------------
+1. Django=2.2.1
+2. psycopg2=2.8.2
+3. sqlparse=0.2.4
+4. djongo=1.2.32
+5. django-crispy-forms=1.7.2
+6. django-redis=4.10.0
+7. InstagramApi=1.0.2
+8. cryptography=2.7
+
 
 How to deploy?
 -------------------------
