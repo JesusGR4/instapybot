@@ -7,6 +7,15 @@ STATUS = {'ACTIVE': True,
           'FOLLOWED': True,
           'UNFOLLOWED': False}
 
+class commonInfo(models.Model):
+    created_date = models.DateTimeField(auto_now_add=True, blank=True)  # Created date added by itself
+    modified_at = models.DateTimeField(auto_now=True,
+                                       blank=True)  # We we'll get a little log in Instagram_Account Changes
+    status = models.BooleanField(
+        default=STATUS['ACTIVE'])  # Represent status
+    class Meta:
+        abstract = True
+
 
 # User Entity: Main entity which contains User info
 class User(AbstractUser):
@@ -21,30 +30,24 @@ class User(AbstractUser):
 
 
 # Instagram_Account entity: It represents all Instagram Accounts related to a User
-class InstagramAccount(models.Model):
+class InstagramAccount(commonInfo):
     _id = models.ObjectIdField()
     name = models.CharField(max_length=150)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     instagram_account_name = models.CharField(max_length=150)
     instagram_account_password = models.CharField(max_length=150)
-    status = models.BooleanField(
-        default=STATUS['ACTIVE'])  # This status represents if Instagram Account is active or not
-    created_date = models.DateTimeField(auto_now_add=True, blank=True)  # Created date added by itself
-    modified_at = models.DateTimeField(auto_now=True,
-                                       blank=True)  # We we'll get a little log in Instagram_Account Changes
+
 
     def __str__(self):
         return self.name
 
 
 # Strategy entity: It represents the strategy which will be used by internal bot if active
-class Strategy(models.Model):
+class Strategy(commonInfo):
     _id = models.ObjectIdField()
     strategy_name = models.CharField(max_length=150)
     instagram_account = models.ForeignKey(InstagramAccount, on_delete=models.CASCADE)
-    status = models.BooleanField(default=STATUS['ACTIVE'])  # This status represents if Strategy is active or not
-    created_date = models.DateTimeField(auto_now_add=True, blank=True)  # Created date added by itself
-    modified_at = models.DateTimeField(auto_now=True, blank=True)  # We we'll get a little log in Strategy Changes
+
 
 
     def __str__(self):
@@ -53,7 +56,7 @@ class Strategy(models.Model):
 
 # Influencer entity: It represents the influencer-strategy. It means, here we are goint to configure
 # how many users to follow and all functional requisites in README included
-class Influencer(models.Model):
+class Influencer(commonInfo):
     _id = models.ObjectIdField()
     strategy = models.ForeignKey(Strategy, on_delete=models.CASCADE)
     influencer_instagram_id = models.CharField(
@@ -64,10 +67,6 @@ class Influencer(models.Model):
     days_has_to_pass_to_unfollow = models.PositiveIntegerField(default=0)  # It sets how many days has to unfollow
     initial_time_to_follow = models.TimeField()  # Initial hour to follow people
     final_time_to_follow = models.TimeField()  # Final hour to follow people
-    status = models.BooleanField(default=STATUS['ACTIVE'])  # This status represents if Strategy is active or not
-    created_date = models.DateTimeField(auto_now_add=True, blank=True)  # Created date added by itself
-    modified_at = models.DateTimeField(auto_now=True, blank=True)  # We we'll get a little log in Influencer Changes
-
 
     def __str__(self):
         return self.name
@@ -89,7 +88,7 @@ class InfluencerFollow(models.Model):
 
 
 # It represents the hashtag which user wants to work on.
-class Hashtag(models.Model):
+class Hashtag(commonInfo):
     _id = models.ObjectIdField()
     hashtag_name = models.CharField(max_length=150)
     strategy = models.ForeignKey(Strategy, on_delete=models.CASCADE)
@@ -98,9 +97,6 @@ class Hashtag(models.Model):
     final_time_to_like_posts = models.TimeField()
     initial_time_to_comment_posts = models.TimeField()
     final_time_to_comment_posts = models.TimeField()
-    status = models.BooleanField(default=STATUS['ACTIVE'])  # This status represents if Hashtag is active or not
-    created_date = models.DateTimeField(auto_now_add=True, blank=True)  # Created date added by itself
-    modified_at = models.DateTimeField(auto_now=True, blank=True)  # We we'll get a little log in Influencer Changes
 
     def __str__(self):
         return self.hashtag_name
@@ -118,15 +114,12 @@ class LikedPost(models.Model):
 
 
 # It represents every word can be used to create a sentence on Instagram post
-class Word(models.Model):
+class Word(commonInfo):
     _id = models.ObjectIdField()
     hashtag = models.ForeignKey(Hashtag, on_delete=models.CASCADE)
     order_in_sentence = models.PositiveIntegerField(
         default=0)  # Zero is the first position of the sentence, This attribute represents the word's position in sentence
     content = models.CharField(max_length=30)
-    status = models.BooleanField(default=STATUS['ACTIVE'])  # This status represents if Word is active or not
-    created_date = models.DateTimeField(auto_now_add=True, blank=True)  # Created date added by itself
-    modified_at = models.DateTimeField(auto_now=True, blank=True)  # We we'll get a little log in Word Changes
 
     def __str__(self):
         return self.content
