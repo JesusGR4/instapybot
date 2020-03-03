@@ -1,0 +1,39 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block body %}
+    {% if instagram_accounts|length > 0 %}
+        <div class="pt-4">
+            <div class="float-left"><h2>{% trans "Your Instagram Accounts" %}</h2></div>
+            <div class="float-right">
+                <a class="btn btn-dark rounded" href="{% url 'create_instagram_account' %}">{% trans "Create an Instagram Account" %}</a>
+            </div>
+        </div>
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">{% trans "Name" %}</th>
+                <th scope="col">{% trans "Instagram Account" %}</th>
+                <th scope="col">{% trans "Status" %}</th>
+                <th scope="col">{% trans "Actions" %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for  instagram_account in instagram_accounts %}
+                <tr>
+                    <td><p>{{ instagram_account.name }}</p></td>
+                    <td><p>{{ instagram_account.instagram_account_name }}</p></td>
+                    <td><p>{{ instagram_account.status }}</p></td>
+                    <td>
+                        <a class="btn btn-primary rounded">{% trans "Edit" %}</a>
+                        <a class="btn btn-danger rounded">{% trans "Disable" %}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% elif user.is_authenticated %}
+        {% trans "You don't have any Instagram Acoount, create one." %}
+    {% endif %}
+{% endblock %}

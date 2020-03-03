@@ -1,0 +1,37 @@
+"""instapybot URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/2.2/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.contrib import admin
+from django.urls import path
+from django.conf.urls import include, url
+from web.views import home, user, instagramaccount
+from web.views.translation import change_language
+from web.views.home import HomeView
+from web.views.user import SignupView, LoginView
+from web.views.instagramaccount import CreateInstagramAccountView
+urlpatterns = [
+    # Administration
+    path('admin/', admin.site.urls),
+    # i18n
+    url(r'i18n/change_language', change_language, name='change_language'),
+    url(r'^$', HomeView.as_view(), name='home'),
+
+    # User management
+    url(r'^login$', LoginView.as_view(), name='login'),
+    url(r'^logout$', user.logout, name='logout'),
+    url(r'^signup$', SignupView.as_view(), name='signup'),
+    # Instagram Account management
+    url(r'^instagram/create$', CreateInstagramAccountView.as_view(), name='create_instagram_account')
+]

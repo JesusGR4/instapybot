@@ -1,0 +1,29 @@
+version: '3'
+services:
+  mongodb:
+    image: mongo:latest
+    environment:
+    - MONGO_DATA_DIR=/data/db
+    - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - ./data/db:/data/db
+    ports:
+      - 27017:27017
+    command: mongod --smallfiles --logpath=/dev/null
+  redis:
+    image: redis:latest
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis-conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./data/redis:/data
+  app:
+    build: ./app/
+    command: bash -c "python ./app/manage.py runserver 0.0.0.0:8000"
+    restart: always
+    ports:
+      - "8000:8000"
+    links:
+      - mongodb
+      - redis
+    volumes:
+      - .:/app
